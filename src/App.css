@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+}
+
+.site-title {
+  background-color: rgb(77, 243, 181);
+  width: 100%;
+}
+
+.tifosi {
+  margin-left: 10px;
+  color: #242424;
+}
+
+.input-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input{
+  height: 40px;
+  width: 500px;
+  font-size: 35px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(20, 20, 20);
+}
+
+/* App.css */
+
+.site-title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tifosi {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.input-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.models-list {
+  margin-top: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.models-list div {
+  background-color: rgb(20, 20, 20);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  width: 300px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.models-list div:hover {
+  background-color: #e6e6e6;
+}
+
