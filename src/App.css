@@ -68,3 +68,15 @@ body {
   background-color: #e6e6e6;
 }
 
+.model-item {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  width: 100px;
+}
+
+.model-list {
+  margin-top: 400px;
+}
+

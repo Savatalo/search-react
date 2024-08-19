@@ -1,53 +1,66 @@
-import "./App.css";
-import axios from "axios";
-import { useState } from "react";
+  import "./App.css";
+  import axios from "axios";
+  import { useState, useEffect } from "react";
+  import { BrowserRouter, Routes, Route } from "react-router-dom";
+  import About from "./pages/about";
 
-export default function App() {
-  const [input, setInput] = useState('');
-  const [models, setModels] = useState([]);
+  export default function App() {
+    const [models, setModels] = useState([]);
+    const [filteredModels, setFilteredModels] = useState([]);
+    const [query, setQuery] = useState("");
 
-  const getData = () => {
-    axios.get(`https://www.carqueryapi.com/api/0.3/?cmd=getModels&make=mercedes-benz`)
-      .then(res => {
-        setModels(res.data.Models);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    useEffect(() => {
+      
+      axios.get(`https://www.carqueryapi.com/api/0.3/?cmd=getTrims`)
+        .then(res => {
+          const trims = res.data.Trims;
+          setModels(trims);  
+          setFilteredModels(trims);  
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }, []);
+
+    const handleInputChange = (event) => {
+      const searchQuery = event.target.value.toLowerCase();
+      setQuery(searchQuery);
+
+      
+      const filtered = models.filter(model => 
+        model.model_name.toLowerCase().includes(searchQuery)
+      );
+      setFilteredModels(filtered);
+    };
+
+    return (
+      <>
+      
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<About />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </BrowserRouter>
+
+        <h1 className="site-title">CARS</h1>
+        <div className="input-div">
+          <input
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            className="input"
+          />
+        </div>
+        <div className="model-list">
+          {filteredModels.map((model, index) => (
+            <button key={index} className="model-item">
+              {model.model_name}
+            </button>
+          ))}
+        </div>
+      </>
+    );
   }
-
-  const handleChange = (e) => {
-    setInput(e.target.value);
-    getData();
-  }
-
-  const stanko = () => {
-    console.log('test')
-  }
-
-  return (
-    <>
-      <div className="site-title">
-        <h1 className="tifosi">MERCEDES-BENZ</h1>
-      </div>
-      <div className="input-div">
-        <input 
-          onChange={handleChange} 
-          type="text" 
-          className="input"
-          value={input}
-        />
-      </div>
-      <div className="models-list">
-        {models.filter(model => model.model_name.toLowerCase().includes(input.toLowerCase())).map((model, index) => (
-          <div key={index} onClick={() => stanko()}>
-            {model.model_name}
-          </div>
-        ))}
-      </div>
-    </>
-  );
-}
-
 
 
